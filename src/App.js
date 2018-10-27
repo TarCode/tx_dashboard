@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 import './App.css';
 
 import Nav from './components/nav'
+import Auth from './views/auth'
 
 class App extends Component {
   state = {
@@ -20,7 +23,15 @@ class App extends Component {
       <div>
         {
           this.state.scriptLoaded ?
-          <Nav/> :
+          <div>
+          <Router>
+            <div>
+              <Nav/>
+
+              <Route path="/" exact component={Auth} />
+            </div>
+          </Router>
+          </div> :
           <p>Loading...</p>
         }
       </div>
