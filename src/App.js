@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Provider } from 'react-redux'
+import { configureStore } from './store'
 
 import './App.css';
 
@@ -19,22 +21,26 @@ class App extends Component {
   }
   
   render() {
-    return (
-      <div>
-        {
-          this.state.scriptLoaded ?
-          <div>
-          <Router>
-            <div>
-              <Nav/>
+    const store = configureStore()
 
-              <Route path="/" exact component={Auth} />
-            </div>
-          </Router>
-          </div> :
-          <p>Loading...</p>
-        }
-      </div>
+    return (
+      <Provider store={store}>
+        <div>
+          {
+            this.state.scriptLoaded ?
+            <div>
+            <Router>
+              <div>
+                <Nav/>
+
+                <Route path="/" exact component={Auth} />
+              </div>
+            </Router>
+            </div> :
+            <p>Loading...</p>
+          }
+        </div>
+      </Provider>
     );
   }
 }
