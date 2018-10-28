@@ -35,3 +35,43 @@ export const getAccounts = () => (
         }
     }
 )
+
+export const ADD_ACCOUNT = "ADD_ACCOUNT"
+export const ADD_ACCOUNT_SUCCESS = "ADD_ACCOUNT_SUCCESS"
+export const ADD_ACCOUNT_ERROR = "ADD_ACCOUNT_ERROR"
+
+export const addAccount = (data) => (
+    async dispatch => {
+        try {
+            dispatch({
+                type: ADD_ACCOUNT
+            })
+            const response = await fetch('http://localhost:3000/api/accounts', {
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Token ' + localStorage.getItem('token')
+                }),
+                method: 'POST',
+                body: JSON.stringify(data)
+            })
+            const json = await response.json()
+            
+            if (json.status === 'success') {
+                dispatch({
+                    type: ADD_ACCOUNT_SUCCESS,
+                    account:json.data
+                })
+            } else {
+                dispatch({
+                    type: ADD_ACCOUNT_ERROR,
+                    err: json.msg
+                })
+            }
+        } catch (err) {
+            dispatch({
+                type: ADD_ACCOUNT_ERROR,
+                err
+            })
+        }
+    }
+)
