@@ -1,11 +1,10 @@
 import { setUser, removeUser } from '../utils'
 
 import {
-	LOGIN,
-	LOGIN_SUCCESS,
-    LOGIN_ERROR,
-    LOGOUT
-} from '../actions/auth'
+	GET_ACCOUNTS,
+	GET_ACCOUNTS_SUCCESS,
+    GET_ACCOUNTS_ERROR,
+} from '../actions/accounts'
 
 import { merge } from 'lodash'
 
@@ -13,31 +12,28 @@ export default (
 	state = { 
         loading: false,
         err: null,
+        accounts: []
 	}, 
 	action
 ) => {	
 	switch (action.type) {
-        case LOGIN:
+        case GET_ACCOUNTS:
 			return merge({}, {
                 loading: true
             })
             
-        case LOGIN_ERROR:        
+        case GET_ACCOUNTS_ERROR:        
 			return merge({}, {
 				loading: false,
 				err: action.err
             })
 
-        case LOGIN_SUCCESS:
-            setUser(action.user, action.token)
+        case GET_ACCOUNTS_SUCCESS:
 			return merge({}, state, {
-				loading: false
+                loading: false,
+                accounts: action.accounts
             })
 
-        case LOGOUT:
-            removeUser()
-            break;
-            
 		default:
 			return state
 	}

@@ -7,6 +7,9 @@ import './App.css';
 
 import Nav from './components/nav'
 import Auth from './views/auth'
+import Home from './views/home'
+
+const store = configureStore()
 
 class App extends Component {
   state = {
@@ -21,7 +24,9 @@ class App extends Component {
   }
   
   render() {
-    const store = configureStore()
+
+    const token = localStorage.getItem('token')
+    const user = localStorage.getItem('user')
 
     return (
       <Provider store={store}>
@@ -33,7 +38,17 @@ class App extends Component {
               <div>
                 <Nav/>
 
-                <Route path="/" exact component={Auth} />
+                
+
+                 {
+                  token && user ?
+                  <div>
+                    <Route path='/' component={Home}/>
+                  </div> :
+                  <div>
+                    <Route path="/" exact component={Auth} />
+                  </div>
+                }
               </div>
             </Router>
             </div> :
