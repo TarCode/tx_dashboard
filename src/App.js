@@ -41,8 +41,10 @@ class App extends Component {
                   token && user ?
                   <div>
                     <Route path='*' component={Nav}/>
-                    <Route exact path='/' component={Home}/>
-                    <Route exact path='/users' component={Users}/>
+                    <div className='body'>
+                      <Route exact path='/' component={Home}/>
+                      <Route exact path='/users' component={Users}/>
+                    </div>
                   </div> :
                   <div>
                     <Route path="/" exact component={Auth} />

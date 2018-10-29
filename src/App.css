@@ -6,7 +6,7 @@ body {
   width: 100%;
 }
 
-body {
+.body {
   padding-left: 250px;
 }
 
@@ -20,7 +20,7 @@ body {
 }
 
 @media only screen and (max-width : 992px) {
-body {
+.body {
     padding-left: 0;
   }
 }

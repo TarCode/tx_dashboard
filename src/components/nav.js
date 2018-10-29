@@ -21,13 +21,8 @@ class Nav extends Component {
         <div className='navbar-fixed'>
             <nav className='black'>
             <div className="nav-wrapper">
-                <a href="#!" className="brand-logo">TXMon</a>
+                <a href="#!" className="brand-logo right">TXMon</a>
                 <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></a>
-                <ul className="right hide-on-med-and-down">
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/users">Users</Link></li>
-                <li><div>Logout</div></li>
-                </ul>
             </div>
             </nav>
          </div>
