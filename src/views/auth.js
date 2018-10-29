@@ -26,44 +26,47 @@ class LoginComponent extends Component {
         console.log("ERROR", err);
         
         return (
-            <div className='container'>
-                <div className="row">
-                    <form onSubmit={this.handleSubmit} className="col s12">
-                        {/* <div className="row">
-                            <div className="input-field col s6">
-                            <input placeholder="Placeholder" id="first_name" type="text" className="validate"/>
-                            <label for="first_name">First Name</label>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '90vh'}}>
+                <div className='container'>
+                    <h3>Login</h3>
+                    <div className="row">
+                        <form onSubmit={this.handleSubmit} className="col s12">
+                            {/* <div className="row">
+                                <div className="input-field col s6">
+                                <input placeholder="Placeholder" id="first_name" type="text" className="validate"/>
+                                <label for="first_name">First Name</label>
+                                </div>
+                                <div className="input-field col s6">
+                                <input id="last_name" type="text" className="validate"/>
+                                <label for="last_name">Last Name</label>
+                                </div>
+                            </div> */}
+                            <div className="row">
+                                <div className="input-field col s12">
+                                    <input onChange={this.handleChange} value={email} id="email" type="text" className="validate"/>
+                                    <label htmlFor="email">Email</label>
+                                </div>
+                                <div className="input-field col s12">
+                                    <input onChange={this.handleChange} value={company} id="company" type="text" className="validate"/>
+                                    <label htmlFor="company">Company</label>
+                                </div>
+                                <div className="input-field col s12">
+                                    <input onChange={this.handleChange} value={password} id="password" type="password" className="validate"/>
+                                    <label htmlFor="password">Password</label>
+                                </div>
                             </div>
-                            <div className="input-field col s6">
-                            <input id="last_name" type="text" className="validate"/>
-                            <label for="last_name">Last Name</label>
+                            <div className="row">
+                                <div className="input-field col s12">
+                                    <button disabled={loading} className="btn btn-block waves-effect waves-light" type="submit" name="action">Submit
+                                        <i className="material-icons right">send</i>
+                                    </button>
+                                </div>
+                                <div className="input-field col s12">
+                                    <a href='#'>Need an account?</a>
+                                </div>
                             </div>
-                        </div> */}
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <input onChange={this.handleChange} value={email} id="email" type="text" className="validate"/>
-                                <label htmlFor="email">Email</label>
-                            </div>
-                            <div className="input-field col s12">
-                                <input onChange={this.handleChange} value={company} id="company" type="text" className="validate"/>
-                                <label htmlFor="company">Company</label>
-                            </div>
-                            <div className="input-field col s12">
-                                <input onChange={this.handleChange} value={password} id="password" type="password" className="validate"/>
-                                <label htmlFor="password">Password</label>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <button disabled={loading} className="btn btn-block waves-effect waves-light" type="submit" name="action">Submit
-                                    <i className="material-icons right">send</i>
-                                </button>
-                            </div>
-                            <div className="input-field col s12">
-                                <a href='#'>Need an account?</a>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         )

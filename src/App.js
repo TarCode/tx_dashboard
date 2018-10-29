@@ -6,6 +6,7 @@ import { configureStore } from './store'
 import './App.css';
 
 import Nav from './components/nav'
+import Land from './views/land'
 import Auth from './views/auth'
 import Home from './views/home'
 import Users from './views/users'
@@ -46,14 +47,17 @@ class App extends Component {
                       <Route exact path='/users' component={Users}/>
                     </div>
                   </div> :
-                  <div>
-                    <Route path="/" exact component={Auth} />
+                  <div >
+                    <div>
+                      <Route path="/" exact component={Land} />
+                      <Route path="/login" exact component={Auth} />
+                    </div>
                   </div>
                 }
               </div>
             </Router>
             </div> :
-            <p>Loading...</p>
+            null
           }
         </div>
       </Provider>
