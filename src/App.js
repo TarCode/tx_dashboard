@@ -8,6 +8,7 @@ import './App.css';
 import Nav from './components/nav'
 import Auth from './views/auth'
 import Home from './views/home'
+import Users from './views/users'
 
 const store = configureStore()
 
@@ -36,14 +37,12 @@ class App extends Component {
             <div>
             <Router>
               <div>
-                <Nav/>
-
-                
-
                  {
                   token && user ?
                   <div>
-                    <Route path='/' component={Home}/>
+                    <Route path='*' component={Nav}/>
+                    <Route exact path='/' component={Home}/>
+                    <Route exact path='/users' component={Users}/>
                   </div> :
                   <div>
                     <Route path="/" exact component={Auth} />
