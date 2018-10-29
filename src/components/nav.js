@@ -16,6 +16,8 @@ class Nav extends Component {
   }
 
   render() {
+    const user = JSON.parse(localStorage.getItem('user'))
+
     return (
       <div>
         <div className='navbar-fixed'>
@@ -29,11 +31,11 @@ class Nav extends Component {
 
         <ul className="sidenav sidenav-fixed" id="mobile-demo">
             <li><div className="user-view">
-                <a href="#name"><span className="name">John Doe</span></a>
-                <a href="#email"><span className="email">jdandturk@gmail.com</span></a>
+                <span className="center">{user.email}</span>
             </div></li>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/users">Users</Link></li>
+            <li><Link to="/transactions">Transactions</Link></li>
             <li><a href='#' onClick={() => this.props.logout()}>Logout</a></li>
         </ul>
       </div>

@@ -10,6 +10,7 @@ import Land from './views/land'
 import Auth from './views/auth'
 import Home from './views/home'
 import Users from './views/users'
+import Transactions from './views/transactions'
 
 const store = configureStore()
 
@@ -45,6 +46,7 @@ class App extends Component {
                     <div className='body'>
                       <Route exact path='/' component={Home}/>
                       <Route exact path='/users' component={Users}/>
+                      <Route exact path='/transactions' component={Transactions}/>
                     </div>
                   </div> :
                   <div >

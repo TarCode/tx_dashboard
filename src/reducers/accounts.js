@@ -36,13 +36,13 @@ export default (
             
         case GET_ACCOUNTS_ERROR:
 			return merge({}, state, {
-				loadingAdd: false,
+				loading: false,
 				err: action.err
             })
 
         case ADD_ACCOUNT_ERROR:
 			return merge({}, state, {
-				loading: false,
+				loadingAdd: false,
 				errAdd: action.err
             })
 
