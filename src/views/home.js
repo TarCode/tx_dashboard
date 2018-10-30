@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { getAccounts, addAccount } from '../actions/accounts'
+import { getAccounts } from '../actions/accounts'
+import { createAccount, createCredit, clearData } from '../actions/create'
 
 class CreateTransaction extends Component {
     state = {
@@ -15,29 +16,37 @@ class CreateTransaction extends Component {
 
     handleSubmit = e => {
         e.preventDefault()
-        // this.props.addAccount(this.state)
+        if (this.props.tx_type === 'credit') {
+            const data = {
+                amount: this.state.amount,
+                account: this.props.account.name
+            }
+            this.setState({ amount: '' })
+            this.props.createCredit(data)
+        }
     }
 
     closeAndGetData = e => {
         e.preventDefault()
         var $ = window.$;
         $('#modal2').modal('close');
+        this.props.clearData();
         this.props.getAccounts()
     }
 
     render() {
         const { amount } = this.state
-        const { tx_type, account, msg } = this.props
+        const { tx_type, transaction, err, account } = this.props
 
         
 
         return (
             <form onSubmit={this.handleSubmit} id="modal2" className="modal">
                 {
-                    msg ?
+                    transaction ?
                     <div className="modal-content">
                         <h4>Success</h4>
-                        <p>Account was added</p>
+                        <p>Transaction was successful</p>
                     </div> :
                     <div className="modal-content">
                         <h4>Create {tx_type}</h4>
@@ -46,10 +55,15 @@ class CreateTransaction extends Component {
                             <input onChange={this.handleChange} value={amount} id="amount" type="number" className="validate"/>
                             <label htmlFor="amount">Amount</label>
                         </div>
+                        {
+                            err ?
+                            <span className='red-text'>{err}<br/><br/></span> :
+                            null
+                        }
                     </div>
                 }
                 {
-                    msg ?
+                    transaction ?
                     <div className="modal-footer">
                         <button onClick={this.closeAndGetData} className="waves-effect waves-green btn">Okay</button>
                     </div> :
@@ -63,7 +77,22 @@ class CreateTransaction extends Component {
     }
 }
 
-class AddAccount extends Component {
+const ConnectedCreateTransaction = connect((state) => {
+    const { transaction, loading, err } = state.create
+    return {
+        transaction,
+        loading,
+        err,
+    }
+}, 
+(dispatch) => {
+    return {
+        createCredit: bindActionCreators(createCredit, dispatch)
+    }
+}
+)(CreateTransaction)
+
+class CreateAccount extends Component {
     state = {
         name: ''
     }
@@ -74,19 +103,22 @@ class AddAccount extends Component {
 
     handleSubmit = e => {
         e.preventDefault()
-        this.props.addAccount(this.state)
+        const data = this.state
+        this.props.createAccount(data)
+        this.setState({ name: '' })
     }
 
     closeAndGetData = e => {
         e.preventDefault()
         var $ = window.$;
         $('#modal1').modal('close');
+        this.props.clearData();
         this.props.getAccounts()
     }
 
     render() {
         const { name } = this.state
-        const { account, loadingAdd, errAdd } = this.props
+        const { account, loading, err } = this.props
 
         
 
@@ -105,6 +137,11 @@ class AddAccount extends Component {
                             <input onChange={this.handleChange} value={name} id="name" type="text" className="validate"/>
                             <label htmlFor="name">Name</label>
                         </div>
+                        {
+                            err ?
+                            <span className='red-text'>{err}<br/><br/></span> :
+                            null
+                        }
                     </div>
                 }
                 
@@ -115,13 +152,32 @@ class AddAccount extends Component {
                     </div> :
                     <div className="modal-footer">
                         <a href="#!" className="modal-close waves-effect waves-green btn-flat">Cancel</a>
-                        <button disabled={loadingAdd} className="waves-effect waves-green btn">Add</button>
+                        <button disabled={loading} className="waves-effect waves-green btn">Add</button>
                     </div>
                 }
             </form>
         )
     }
 }
+
+
+
+
+
+const ConnectedCreateAccount = connect((state) => {
+    const { account, loading, err } = state.create
+    return {
+        account,
+        loading,
+        err,
+    }
+}, 
+(dispatch) => {
+    return {
+        createAccount: bindActionCreators(createAccount, dispatch)
+    }
+}
+)(CreateAccount)
 
 class Home extends Component {
     state = {
@@ -135,24 +191,22 @@ class Home extends Component {
     }
 
     render() {
-        const { accounts, loading, err, account, loadingAdd, errAdd, addAccount, getAccounts } = this.props
+        const { accounts, loading, getAccounts, clearData } = this.props
 
         const { tx_type, selected_account } = this.state
         return (
             <div className='container'>
 
-                <AddAccount 
-                    account={account}
-                    loading={loadingAdd}
-                    err={errAdd}
-                    addAccount={addAccount}
+                <ConnectedCreateAccount
                     getAccounts={getAccounts}
+                    clearData={clearData}
                 />
 
-                <CreateTransaction
+                <ConnectedCreateTransaction
                     tx_type={tx_type}
                     account={selected_account}
                     getAccounts={getAccounts}
+                    clearData={clearData}
                 />
 
                 <div className='row'>
@@ -210,22 +264,18 @@ class Home extends Component {
 }
 
 function mapStateToProps(state) {
-    const { accounts, account, loading, loadingAdd, err, errAdd } = state.accounts
+    const { accounts, loading, err } = state.accounts
     return {
         accounts,
         loading,
-        err,
-
-        account,
-        loadingAdd,
-        errAdd
+        err
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         getAccounts: bindActionCreators(getAccounts, dispatch),
-        addAccount: bindActionCreators(addAccount, dispatch)
+        clearData: bindActionCreators(clearData, dispatch)
     }
 }
 
