@@ -1,5 +1,3 @@
-import { setUser, removeUser } from '../utils'
-
 import {
 	GET_TRANSACTIONS,
 	GET_TRANSACTIONS_SUCCESS,

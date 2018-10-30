@@ -21,9 +21,9 @@ class Nav extends Component {
     return (
       <div>
         <div className='navbar-fixed'>
-            <nav className='black'>
+            <nav className='teal darken-2'>
             <div className="nav-wrapper">
-                <a href="#!" className="brand-logo right">TXMon</a>
+                <a href="#!" className="brand-logo right">Bullet</a>
                 <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></a>
             </div>
             </nav>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { Link } from 'react-router-dom'
 import { login } from '../actions/auth'
 
 class LoginComponent extends Component {
@@ -55,14 +56,20 @@ class LoginComponent extends Component {
                                     <label htmlFor="password">Password</label>
                                 </div>
                             </div>
+                            {
+                                err ?
+                                <span className='red-text'>{err}<br/><br/></span> :
+                                null
+                            }
                             <div className="row">
                                 <div className="input-field col s12">
-                                    <button disabled={loading} className="btn btn-block waves-effect waves-light" type="submit" name="action">Submit
+                                    <button disabled={loading} className="btn btn-block teal darken-2 waves-effect waves-light" type="submit" name="action">Submit
                                         <i className="material-icons right">send</i>
                                     </button>
                                 </div>
                                 <div className="input-field col s12">
-                                    <a href='#'>Need an account?</a>
+                                    <Link className='right' to='/'>Back</Link>
+                                    <Link to='/register'>Need an account?</Link>
                                 </div>
                             </div>
                         </form>

@@ -8,6 +8,8 @@ import './App.css';
 import Nav from './components/nav'
 import Land from './views/land'
 import Auth from './views/auth'
+import RegisterCompany from './views/register-company'
+import Register from './views/register'
 import Home from './views/home'
 import Users from './views/users'
 import Transactions from './views/transactions'
@@ -53,6 +55,8 @@ class App extends Component {
                     <div>
                       <Route path="/" exact component={Land} />
                       <Route path="/login" exact component={Auth} />
+                      <Route path="/register" exact component={Register} />
+                      <Route path="/company/register" exact component={RegisterCompany} />
                     </div>
                   </div>
                 }
