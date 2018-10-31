@@ -7,15 +7,15 @@ export default class extends Component {
             <div>
                 <div className="skewed-bg">
                     <div className="content">
-                        <h1 className="title white-text">Bullet</h1>
-                        <p className="text">The cloud bank account management platform.</p>
+                        <h1 className="title white-text">ClanWallet</h1>
+                        <p className="text">The multicurrency crypto wallet for clans.</p>
                         <div className='container'>
                             <Link className="btn white teal-text text-darken-2 btn-block" to="/login">
-                                Register or login to an existing company<i className="material-icons right">keyboard_arrow_right</i>
+                                Register or login to an existing clan<i className="material-icons right">keyboard_arrow_right</i>
                             </Link>
                             <br/>
                             <Link className="btn white teal-text text-darken-2 btn-block" to="/company/register">
-                                Create a new company<i className="material-icons right">keyboard_arrow_right</i>
+                                Create a new clan<i className="material-icons right">keyboard_arrow_right</i>
                             </Link>
                         </div>
                     </div>
@@ -23,7 +23,7 @@ export default class extends Component {
                 
                 <footer className="footer center">
                     <p className='flow-text'>
-                        A magic Bullet for accounts and transaction management.
+                        Create a clan, or join an existing clan. Transfer between clan members. Create your own token.
                     </p>
                 </footer>
             </div>

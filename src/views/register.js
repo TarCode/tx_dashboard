@@ -7,7 +7,7 @@ import { register } from '../actions/auth'
 class RegisterComponent extends Component {
     state = {
         email: '',
-        company: '',
+        clan: '',
         password: ''
     }
 
@@ -22,7 +22,7 @@ class RegisterComponent extends Component {
 
     render () {
 
-        const { email, company, password } = this.state
+        const { email, clan, password } = this.state
         const { loading, err } = this.props
 
         return (
@@ -37,8 +37,8 @@ class RegisterComponent extends Component {
                                     <label htmlFor="email">Email</label>
                                 </div>
                                 <div className="input-field col s12">
-                                    <input onChange={this.handleChange} value={company} id="company" type="text" className="validate"/>
-                                    <label htmlFor="company">Company</label>
+                                    <input onChange={this.handleChange} value={clan} id="clan" type="text" className="validate"/>
+                                    <label htmlFor="clan">Clan</label>
                                 </div>
                                 <div className="input-field col s12">
                                     <input onChange={this.handleChange} value={password} id="password" type="password" className="validate"/>

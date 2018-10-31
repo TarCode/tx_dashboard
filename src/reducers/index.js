@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux'
 
 import auth from './auth'
-import accounts from './accounts'
+import wallets from './wallets'
 import transactions from './transactions'
 import users from './users'
 import create from './create'
 
 export default combineReducers({
     auth,
-    accounts,
+    wallets,
     users,
     transactions,
     create

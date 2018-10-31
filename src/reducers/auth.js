@@ -9,9 +9,9 @@ import {
     REGISTER_SUCCESS,
     REGISTER_ERROR,
 
-    REGISTER_COMPANY,
-    REGISTER_COMPANY_SUCCESS,
-    REGISTER_COMPANY_ERROR,
+    REGISTER_CLAN,
+    REGISTER_CLAN_SUCCESS,
+    REGISTER_CLAN_ERROR,
 
     LOGOUT
 } from '../actions/auth'
@@ -28,14 +28,14 @@ export default (
 	switch (action.type) {
         case LOGIN:
         case REGISTER:
-        case REGISTER_COMPANY:
+        case REGISTER_CLAN:
 			return merge({}, {
                 loading: true
             })
             
         case LOGIN_ERROR:
         case REGISTER_ERROR:
-        case REGISTER_COMPANY_ERROR:      
+        case REGISTER_CLAN_ERROR:      
 			return merge({}, {
 				loading: false,
 				err: action.err
@@ -43,7 +43,7 @@ export default (
 
         case LOGIN_SUCCESS:
         case REGISTER_SUCCESS:
-        case REGISTER_COMPANY_SUCCESS:
+        case REGISTER_CLAN_SUCCESS:
             setUser(action.user, action.token)
 			return merge({}, state, {
 				loading: false

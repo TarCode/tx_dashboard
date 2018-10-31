@@ -19,6 +19,8 @@ class UsersComponent extends Component {
     render() {
         const { transactions, loading, err, } = this.props
 
+        console.log("TRANSACTIONS", transactions);
+        
         return (
             <div className='container'>
                 <div className='row'>
@@ -34,14 +36,25 @@ class UsersComponent extends Component {
                         loading ?
                         <p>Loading...</p> :
                         transactions.length > 0 ?
-                        transactions.map((tx, index) => (
+                        transactions.reverse().map((tx, index) => (
                             <li key={index} className="collection-item avatar">
-                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}} className='circle blue'>
-                                    <span style={{ fontSize: '20px'}} className='white-text'>{tx.type[0].toUpperCase()}</span>
+                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}} className={
+                                    tx.type === 'credit' ?
+                                    'circle green' :
+                                    'circle red'
+                                }>
+                                    <span style={{ fontSize: '20px'}} className='white-text'>{
+                                        tx.type === 'credit' ?
+                                        'In' :
+                                        'Out'
+                                    }</span>
                                 </div>
                                 <span className="title">{tx.type}</span>
+                                <p>
+                                    Created by: {tx.user_id}
+                                </p>
                                 <div className="secondary-content">
-                                    <span className="title">{tx.amount}</span>
+                                    <b style={{ fontSize: '20px'}}  className="title">{tx.amount}</b>
                                 </div>
                             </li>
                         )) :
