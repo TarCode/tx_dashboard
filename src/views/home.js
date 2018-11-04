@@ -18,7 +18,8 @@ class CreateTransaction extends Component {
         e.preventDefault()
         const data = {
             amount: this.state.amount,
-            wallet: this.props.wallet.name
+            wallet_id: this.props.wallet._id,
+            user_id: this.props.wallet.user_id
         }
 
         if (this.props.tx_type === 'credit') {
@@ -182,7 +183,7 @@ const ConnectedCreateWallet = connect((state) => {
 class SetDefaultWallet extends Component {
     handleSubmit = e => {
         e.preventDefault()
-        this.props.updateWallet(this.props.selected_wallet.wallet_id, { default: true })
+        this.props.updateWallet(this.props.selected_wallet._id, { default: true })
     }
 
     closeAndGetData = e => {
@@ -258,6 +259,7 @@ class Home extends Component {
     componentDidMount() {
         var $ = window.$;
         $('.modal').modal();
+        $('.collapsible').collapsible();
         this.props.getWallets()
     }
 
@@ -293,52 +295,68 @@ class Home extends Component {
                         <button data-target="modal1" className='btn modal-trigger'>New</button>
                     </div>
                 </div>
+                <div className='row'>
+                    <p className='flow-text'>The default wallet will be created for every new user that signs up to this clan</p>
+                </div>
                 
-                 <ul className="collection">
+                 <ul className="collection collapsible">
                     {
                         loading ?
                         <p>Loading...</p> :
-                        wallets.length > 0 ?
-                        wallets.map((wallet, index) => (
-                            <li key={index} className="collection-item avatar">
-                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}} className='circle blue'>
-                                    <span style={{ fontSize: '20px'}} className='white-text'>{wallet.name[0].toUpperCase()}</span>
+                        wallets && wallets.clan_wallets && wallets.clan_wallets.length > 0 ?
+                        wallets.clan_wallets.map((wallet, index) => (
+                            <li key={index}>
+                                <div className='collapsible-header'>
+                                    <p className="title">{wallet.name.toUpperCase()} ({wallets.user_wallets.filter(u => u.wallet_id === wallet._id).length}) {wallet.default ? 'Default' : null} </p>
                                 </div>
-                                <span className="title">{wallet.name}</span>
-                                <p>
-                                    <b>Balance: </b>{wallet.balance}<br/>
-                                    {wallet.default ? 'Default' : null}
-                                </p>
-                                <div className="secondary-content">
-                                    {
-                                        !wallet.default ? 
-                                        <button onClick={() => {
-                                            this.setState({
-                                                selected_wallet: wallet
-                                            })
-                                            
-                                            var $ = window.$;
-                                            $('#modal3').modal('open');
-                                        }} className="waves-effect btn-flat">Set default</button> : 
-                                        null
-                                    }
-                                    <button onClick={() => {
-                                        this.setState({
-                                            tx_type: 'debit',
-                                            selected_wallet: wallet
-                                        })
+                                <div className='collapsible-body'>
+                                    <div className='container'>
+                                       {
+                                            !wallet.default ? 
+                                            <button onClick={() => {
+                                                this.setState({
+                                                    selected_wallet: wallet
+                                                })
+                                                
+                                                var $ = window.$;
+                                                $('#modal3').modal('open');
+                                            }} className="waves-effect btn btn-block">Set {wallet.name} as default</button> : 
+                                            null
+                                        }
+                                        <br/>
+                                       </div>
+                                       {
+                                           wallets.user_wallets.filter(u => u.wallet_id === wallet._id).map((u, index) => (
+                                            <div key={index} className="collection-item avatar">
+                                                <div className='right'>
+                                                    <button onClick={() => {
+                                                        this.setState({
+                                                            tx_type: 'debit',
+                                                            selected_wallet: { _id: wallet._id, user_id: u.user_id}
+                                                        })
 
-                                        var $ = window.$;
-                                        $('#modal2').modal('open');
-                                    }} style={{ marginRight: '10px' }} className="waves-effect btn-flat">Debit</button>
-                                    <button onClick={() => {
-                                        this.setState({
-                                            tx_type: 'credit',
-                                            selected_wallet: wallet
-                                        })
-                                        var $ = window.$;
-                                        $('#modal2').modal('open');
-                                    }} className="waves-effect btn-flat">Credit</button>
+                                                        var $ = window.$;
+                                                        $('#modal2').modal('open');
+                                                    }} style={{ marginRight: '10px' }} className="waves-effect btn-flat">Debit</button>
+                                                    <button onClick={() => {
+                                                        this.setState({
+                                                            tx_type: 'credit',
+                                                            selected_wallet: { _id: wallet._id, user_id: u.user_id}
+                                                        })
+                                                        var $ = window.$;
+                                                        $('#modal2').modal('open');
+                                                    }} className="waves-effect btn-flat">Credit</button>
+                                                </div>
+                                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}} className='circle blue'>
+                                                    <span style={{ fontSize: '20px'}} className='white-text'>{u.name[0].toUpperCase()}</span>
+                                                </div>
+                                                <span className="title">{u.user_id}</span>
+                                                <p><b>Balance:</b> {u.balance} <br/>
+                                                </p>
+                                                
+                                            </div>
+                                           ))
+                                       }
                                 </div>
                             </li>
                         )) :

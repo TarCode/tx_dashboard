@@ -33,7 +33,9 @@ class UsersComponent extends Component {
                     {
                         loading ?
                         <p>Loading...</p> :
-                        users.length > 0 ?
+                        err ? 
+                        <p>{err}</p> :
+                        users && users.length > 0 ?
                         users.map((user, index) => (
                             <li key={index} className="collection-item avatar">
                                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}} className='circle blue'>

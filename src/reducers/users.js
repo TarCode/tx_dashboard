@@ -19,15 +19,12 @@ export default (
 			return merge({}, {
                 loading: true
             })
-
-     
             
         case GET_USERS_ERROR:
 			return merge({}, state, {
-				loadingAdd: false,
+				loading: false,
 				err: action.err
             })
-
        
         case GET_USERS_SUCCESS:
 			return merge({}, state, {

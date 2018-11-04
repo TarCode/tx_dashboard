@@ -51,7 +51,8 @@ class UsersComponent extends Component {
                                 </div>
                                 <span className="title">{tx.type}</span>
                                 <p>
-                                    Created by: {tx.user_id}
+                                    Created by: {tx.created_by}<br/>
+                                    Destination account: {tx.wallet_id}<br/>
                                 </p>
                                 <div className="secondary-content">
                                     <b style={{ fontSize: '20px'}}  className="title">{tx.amount}</b>

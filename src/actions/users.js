@@ -24,13 +24,13 @@ export const getUsers = () => (
             } else {
                 dispatch({
                     type: GET_USERS_ERROR,
-                    err: "Error getting accounts"
+                    err: json.msg
                 })
             }
         } catch (err) {
             dispatch({
                 type: GET_USERS_ERROR,
-                err
+                err: "Error getting users"
             })
         }
     }
