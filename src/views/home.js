@@ -182,7 +182,7 @@ const ConnectedCreateWallet = connect((state) => {
 class SetDefaultWallet extends Component {
     handleSubmit = e => {
         e.preventDefault()
-        this.props.updateWallet(this.props.selected_wallet._id, { default: true })
+        this.props.updateWallet(this.props.selected_wallet.wallet_id, { default: true })
     }
 
     closeAndGetData = e => {

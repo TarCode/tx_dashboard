@@ -8,7 +8,7 @@ export const getWallets = () => (
             dispatch({
                 type: GET_WALLETS
             })
-            const response = await fetch('http://localhost:3000/api/wallets', {
+            const response = await fetch('http://localhost:3000/api/admin/wallets', {
                 headers: new Headers({
                     'Content-Type': 'application/json',
                     'Authorization': 'Token ' + localStorage.getItem('token')

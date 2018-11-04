@@ -17,7 +17,8 @@ class Nav extends Component {
 
   render() {
     const user = JSON.parse(localStorage.getItem('user'))
-
+    console.log(this.props.match);
+    
     return (
       <div>
         <div className='navbar-fixed'>
@@ -33,9 +34,9 @@ class Nav extends Component {
             <li><div className="user-view">
                 <span className="center">{user.email}</span>
             </div></li>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/users">Users</Link></li>
-            <li><Link to="/transactions">Transactions</Link></li>
+            <li className={this.props.match.url === '/' ?'active' : null}><Link to="/">Home</Link></li>
+            <li className={this.props.match.url === '/users' ?'active' : null}><Link to="/users">Users</Link></li>
+            <li className={this.props.match.url === '/transactions' ?'active' : null}><Link to="/transactions">Transactions</Link></li>
             <li><a href='#' onClick={() => this.props.logout()}>Logout</a></li>
         </ul>
       </div>

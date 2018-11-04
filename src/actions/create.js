@@ -8,7 +8,7 @@ export const createWallet = (data) => (
             dispatch({
                 type: CREATE_WALLET
             })
-            const response = await fetch('http://localhost:3000/api/wallets', {
+            const response = await fetch('http://localhost:3000/api/admin/wallets', {
                 headers: new Headers({
                     'Content-Type': 'application/json',
                     'Authorization': 'Token ' + localStorage.getItem('token')
@@ -48,7 +48,7 @@ export const updateWallet = (id, data) => (
             dispatch({
                 type: UPDATE_WALLET
             })
-            const response = await fetch('http://localhost:3000/api/wallets/' + id, {
+            const response = await fetch('http://localhost:3000/api/admin/wallets/' + id, {
                 headers: new Headers({
                     'Content-Type': 'application/json',
                     'Authorization': 'Token ' + localStorage.getItem('token')
@@ -88,7 +88,7 @@ export const createCredit = (data) => (
             dispatch({
                 type: CREATE_CREDIT
             })
-            const response = await fetch('http://localhost:3000/api/transactions/credit', {
+            const response = await fetch('http://localhost:3000/api/admin/transactions/credit', {
                 headers: new Headers({
                     'Content-Type': 'application/json',
                     'Authorization': 'Token ' + localStorage.getItem('token')
@@ -128,7 +128,7 @@ export const createDebit = (data) => (
             dispatch({
                 type: CREATE_DEBIT
             })
-            const response = await fetch('http://localhost:3000/api/transactions/debit', {
+            const response = await fetch('http://localhost:3000/api/admin/transactions/debit', {
                 headers: new Headers({
                     'Content-Type': 'application/json',
                     'Authorization': 'Token ' + localStorage.getItem('token')
