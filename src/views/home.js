@@ -17,7 +17,10 @@ class CreateTransaction extends Component {
     handleSubmit = e => {
         e.preventDefault()
         const data = {
-            amount: this.state.amount,
+            amount: parseInt(this.state.amount, 10) * Math.pow(10, this.props.wallet.divisibility),
+            divisibility: this.props.wallet.divisibility,
+            currency_code: this.props.wallet.currency_code,
+            user_wallet_id: this.props.wallet.user_wallet_id,
             wallet_id: this.props.wallet._id,
             user_id: this.props.wallet.user_id
         }
@@ -98,7 +101,9 @@ const ConnectedCreateTransaction = connect((state) => {
 
 class CreateWallet extends Component {
     state = {
-        name: ''
+        name: '',
+        currency_code: '',
+        divisibility: ''
     }
 
     handleChange = e => {
@@ -108,8 +113,9 @@ class CreateWallet extends Component {
     handleSubmit = e => {
         e.preventDefault()
         const data = this.state
+        data['currency_code'] = this.state.currency_code.toUpperCase()
         this.props.createWallet(data)
-        this.setState({ name: '' })
+        this.setState({ name: '', currency_code: '', divisibility: '' })
     }
 
     closeAndGetData = e => {
@@ -121,7 +127,7 @@ class CreateWallet extends Component {
     }
 
     render() {
-        const { name } = this.state
+        const { name, currency_code, divisibility } = this.state
         const { wallet, loading, err } = this.props
 
         
@@ -140,6 +146,14 @@ class CreateWallet extends Component {
                         <div className="input-field">
                             <input onChange={this.handleChange} value={name} id="name" type="text" className="validate"/>
                             <label htmlFor="name">Name</label>
+                        </div>
+                        <div className="input-field">
+                            <input onChange={this.handleChange} value={currency_code} id="currency_code" type="text" className="validate"/>
+                            <label htmlFor="currency_code">Currency code</label>
+                        </div>
+                        <div className="input-field">
+                            <input onChange={this.handleChange} value={divisibility} id="divisibility" type="number" className="validate"/>
+                            <label htmlFor="divisibility">Divisibility</label>
                         </div>
                         {
                             err ?
@@ -266,6 +280,9 @@ class Home extends Component {
     render() {
         const { wallets, loading, getWallets, clearData } = this.props
 
+        console.log("WALLETS", wallets);
+        
+
         const { tx_type, selected_wallet } = this.state
         return (
             <div className='container'>
@@ -296,15 +313,15 @@ class Home extends Component {
                     </div>
                 </div>
                 <div className='row'>
-                    <p className='flow-text'>The default wallet will be created for every new user that signs up to this clan</p>
+                    <p className='flow-text'>The default wallet will be created for every new user that signs up to this company</p>
                 </div>
                 
                  <ul className="collection collapsible">
                     {
                         loading ?
                         <p>Loading...</p> :
-                        wallets && wallets.clan_wallets && wallets.clan_wallets.length > 0 ?
-                        wallets.clan_wallets.map((wallet, index) => (
+                        wallets && wallets.company_wallets && wallets.company_wallets.length > 0 ?
+                        wallets.company_wallets.map((wallet, index) => (
                             <li key={index}>
                                 <div className='collapsible-header'>
                                     <p className="title">{wallet.name.toUpperCase()} ({wallets.user_wallets.filter(u => u.wallet_id === wallet._id).length}) {wallet.default ? 'Default' : null} </p>
@@ -332,7 +349,7 @@ class Home extends Component {
                                                     <button onClick={() => {
                                                         this.setState({
                                                             tx_type: 'debit',
-                                                            selected_wallet: { _id: wallet._id, user_id: u.user_id}
+                                                            selected_wallet: { _id: wallet._id, user_wallet_id: u._id, divisibility: wallet.divisibility, currency_code: wallet.currency_code, user_id: u.user_id}
                                                         })
 
                                                         var $ = window.$;
@@ -341,7 +358,7 @@ class Home extends Component {
                                                     <button onClick={() => {
                                                         this.setState({
                                                             tx_type: 'credit',
-                                                            selected_wallet: { _id: wallet._id, user_id: u.user_id}
+                                                            selected_wallet: { _id: wallet._id, user_wallet_id: u._id, divisibility: wallet.divisibility, currency_code: wallet.currency_code, user_id: u.user_id}
                                                         })
                                                         var $ = window.$;
                                                         $('#modal2').modal('open');

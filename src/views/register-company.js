@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Link } from 'react-router-dom'
-import { registerClan } from '../actions/auth'
+import { registerCompany } from '../actions/auth'
 
-class RegisterClanComponent extends Component {
+class RegisterCompanyComponent extends Component {
     state = {
         email: '',
-        clan: '',
+        company: '',
         password: ''
     }
 
@@ -17,18 +17,18 @@ class RegisterClanComponent extends Component {
 
     handleSubmit = e => {
         e.preventDefault()
-        this.props.registerClan(this.state)
+        this.props.registerCompany(this.state)
     }
 
     render () {
 
-        const { email, clan, password } = this.state
+        const { email, company, password } = this.state
         const { loading, err } = this.props
         
         return (
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '90vh'}}>
                 <div className='container'>
-                    <h3>Register clan</h3>
+                    <h3>Register company</h3>
                     <div className="row">
                         <form onSubmit={this.handleSubmit} className="col s12">
                             {/* <div className="row">
@@ -47,8 +47,8 @@ class RegisterClanComponent extends Component {
                                     <label htmlFor="email">Email</label>
                                 </div>
                                 <div className="input-field col s12">
-                                    <input onChange={this.handleChange} value={clan} id="clan" type="text" className="validate"/>
-                                    <label htmlFor="clan">Clan</label>
+                                    <input onChange={this.handleChange} value={company} id="company" type="text" className="validate"/>
+                                    <label htmlFor="company">Company</label>
                                 </div>
                                 <div className="input-field col s12">
                                     <input onChange={this.handleChange} value={password} id="password" type="password" className="validate"/>
@@ -88,8 +88,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        registerClan: bindActionCreators(registerClan, dispatch)
+        registerCompany: bindActionCreators(registerCompany, dispatch)
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterClanComponent)
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterCompanyComponent)

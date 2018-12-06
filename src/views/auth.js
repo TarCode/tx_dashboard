@@ -7,7 +7,7 @@ import { login } from '../actions/auth'
 class LoginComponent extends Component {
     state = {
         email: '',
-        clan: '',
+        company: '',
         password: ''
     }
 
@@ -22,7 +22,7 @@ class LoginComponent extends Component {
 
     render () {
 
-        const { email, clan, password } = this.state
+        const { email, company, password } = this.state
         const { loading, err } = this.props
         console.log("ERROR", err);
         
@@ -48,8 +48,8 @@ class LoginComponent extends Component {
                                     <label htmlFor="email">Email</label>
                                 </div>
                                 <div className="input-field col s12">
-                                    <input onChange={this.handleChange} value={clan} id="clan" type="text" className="validate"/>
-                                    <label htmlFor="clan">Clan</label>
+                                    <input onChange={this.handleChange} value={company} id="company" type="text" className="validate"/>
+                                    <label htmlFor="company">Company</label>
                                 </div>
                                 <div className="input-field col s12">
                                     <input onChange={this.handleChange} value={password} id="password" type="password" className="validate"/>

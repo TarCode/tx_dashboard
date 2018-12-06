@@ -22,7 +22,7 @@ export const login = (data) => (
                     type: LOGIN_SUCCESS,
                     user: {
                         email: json.user.email,
-                        clan: json.user.clan
+                        company: json.user.company
                     },
                     token: json.user.token
                 })
@@ -41,19 +41,19 @@ export const login = (data) => (
     }
 )
 
-export const REGISTER_CLAN = "REGISTER_CLAN"
-export const REGISTER_CLAN_SUCCESS = "REGISTER_CLAN_SUCCESS"
-export const REGISTER_CLAN_ERROR = "REGISTER_CLAN_ERROR"
+export const REGISTER_COMPANY = "REGISTER_COMPANY"
+export const REGISTER_COMPANY_SUCCESS = "REGISTER_COMPANY_SUCCESS"
+export const REGISTER_COMPANY_ERROR = "REGISTER_COMPANY_ERROR"
 
-export const registerClan = (data) => (
+export const registerCompany = (data) => (
     async dispatch => {
         try {
 
             dispatch({
-                type: REGISTER_CLAN
+                type: REGISTER_COMPANY
             })
 
-            const response = await fetch('http://localhost:3000/api/auth/clan/register', {
+            const response = await fetch('http://localhost:3000/api/auth/company/register', {
                 headers: new Headers({
                     'Content-Type': 'application/json'
                 }),
@@ -65,22 +65,22 @@ export const registerClan = (data) => (
             
             if (json.user) {
                 dispatch({
-                    type: REGISTER_CLAN_SUCCESS,
+                    type: REGISTER_COMPANY_SUCCESS,
                     user: {
                         email: json.user.email,
-                        clan: json.user.clan
+                        company: json.user.company
                     },
                     token: json.user.token
                 })
             } else {
                 dispatch({
-                    type: REGISTER_CLAN_ERROR,
+                    type: REGISTER_COMPANY_ERROR,
                     err: json.message
                 })
             }
         } catch (err) {
             dispatch({
-                type: REGISTER_CLAN_ERROR,
+                type: REGISTER_COMPANY_ERROR,
                 err
             })
         }
@@ -114,7 +114,7 @@ export const register = (data) => (
                     type: REGISTER_SUCCESS,
                     user: {
                         email: json.user.email,
-                        clan: json.user.clan
+                        company: json.user.company
                     },
                     token: json.user.token
                 })

@@ -55,7 +55,7 @@ class UsersComponent extends Component {
                                     Destination account: {tx.wallet_id}<br/>
                                 </p>
                                 <div className="secondary-content">
-                                    <b style={{ fontSize: '20px'}}  className="title">{tx.amount}</b>
+                                    <b style={{ fontSize: '20px'}}  className="title">{tx.currency_code + ' ' + (parseInt(tx.amount, 10) / Math.pow(10, tx.divisibility)).toFixed(tx.divisibility)}</b>
                                 </div>
                             </li>
                         )) :
